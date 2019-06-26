@@ -6,7 +6,7 @@
                     <div class="panel-heading">That's a new component</div>
 
                     <div class="panel-body">
-                        I'm an example component!
+                        Here comes the content!
                     </div>
                 </div>
             </div>
