@@ -6,7 +6,7 @@
     <painel titulo="Lista de artigos">
         <migalhas v-bind:lista="{{$listaMigalhas}}"></migalhas>
         <tabela-lista 
-            v-bind:titulos="['#', 'Título', 'Descrição']"
+            v-bind:titulos="['#', 'Título', 'Descrição', 'Data']"
             v-bind:itens="{{$listaArtigos}}"
             ordem="desc" ordemcol="1"
             criar="#criar" detalhe="#detalhe" editar="#editar" deletar="#deletar" token="5465413212"
@@ -17,7 +17,7 @@
 
 <!--Modal Adicionar-->
 <modal nome="adicionar" titulo="Adicionar">
-    <formulario id="formAdicionar" class="" action="#" method="deLete" enctype="" token="">        
+    <formulario id="formAdicionar" class="" action="{{route('artigos.store')}}" method="post" enctype="" token="{{ csrf_token() }}">        
         <div class="form-group">
             <label for="titulo">Título</label>
             <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título">
@@ -25,6 +25,14 @@
         <div class="form-group">
             <label for="descricao">Descrição</label>
             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+        </div>
+        <div class="form-group">
+            <label for="conteudo">Conteúdo</label>
+            <textarea class="form-control" name="conteudo" id="conteudo"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="datetime-local" class="form-control" id="data" name="data">
         </div>
     </formulario>
     <span slot="botoes">
