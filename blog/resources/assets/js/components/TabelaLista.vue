@@ -104,9 +104,9 @@
 				}			 	
 				if(this.buscar){					
 					return this.itens.filter(res => {
-						var resp = Object.values(res);
-						for(let k = 0; k < resp.length; k++ ){							
-							if((resp[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
+						res = Object.values(res);
+						for(let k = 0; k < res.length; k++ ){							
+							if((res[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
 								return true;
 							}
 						}
