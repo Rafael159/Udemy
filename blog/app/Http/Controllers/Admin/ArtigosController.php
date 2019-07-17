@@ -49,12 +49,20 @@ class ArtigosController extends Controller
         $data = $request->all();
 
         //validação
-        $validacao = \Validator::make($data, [
-            "titulo" => "required",
-            "descricao" => "required",
-            "conteudo" => "required",
-            "data" => "required"
-        ]);
+        $validacao = \Validator::make(
+            $data, [
+                "titulo" => "required",
+                "descricao" => "required",
+                "conteudo" => "required",
+                "data" => "required"
+            ],
+            $messages = [
+                "titulo.required" => "Vai preencher o título ou o que?",
+                "descricao.required" => "Vai deixar a descrição vazia mesmo?",
+                "conteudo.required" => "Que palhaçada é essa tio? Escreva alguma coisa no conteúdo",
+                "data.required" => "Quer que eu adivinhe a data?"
+            ]
+    );
 
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
