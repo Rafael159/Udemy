@@ -44,10 +44,21 @@ class ArtigosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // dd($request->all());
+    {      
         //pegar dados vindos do formulário
         $data = $request->all();
+
+        //validação
+        $validacao = \Validator::make($data, [
+            "titulo" => "required",
+            "descricao" => "required",
+            "conteudo" => "required",
+            "data" => "required"
+        ]);
+
+        if($validacao->fails()){
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
 
         //enviar para a model
         Artigo::create($data);
