@@ -9,7 +9,7 @@
             @foreach($errors->all() as $key => $value)
                 <li><strong>{{$value}}</strong></li>
             @endforeach        
-        </div>
+        </div>    
     @endif
 
     <painel titulo="Lista de artigos">
@@ -18,7 +18,7 @@
             v-bind:titulos="['#', 'Título', 'Descrição', 'Data']"
             v-bind:itens="{{$listaArtigos}}"
             ordem="desc" ordemcol="1"
-            criar="#criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="#deletar" token="5465413212"
+            criar="#criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="/admin/artigos/" token="{{ csrf_token() }}"
             modal="sim"
         ></tabela-lista>
     </painel>
