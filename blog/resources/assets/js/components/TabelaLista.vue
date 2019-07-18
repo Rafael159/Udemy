@@ -82,7 +82,7 @@
 	   },
 	   computed:{
 		   lista: function(){
-				
+				let lista = this.itens.data;
 				let ordem = this.ordemAux;//se existir, pega o primeiro valor, senão pela o valor padrão
 				let ordemCol = this.ordemAuxCol;
 
@@ -91,21 +91,21 @@
 				 
 				if(ordem == "asc"){
 					//ordenar de forma crescente
-					this.itens.sort(function(a, b){
+					lista.sort(function(a, b){
 						if(Object.values(a)[ordemCol] > Object.values(b)[ordemCol]) { return 1; }
 						if(Object.values(a)[ordemCol] < Object.values(b)[ordemCol]) { return -1; }
 						return 0;
 					});
 				}else{
 					//ordenar de forma decrescente
-					this.itens.sort(function(a, b){
+					lista.sort(function(a, b){
 						if(Object.values(a)[ordemCol] < Object.values(b)[ordemCol]) { return 1; }
 						if(Object.values(a)[ordemCol] > Object.values(b)[ordemCol]) { return -1; }
 						return 0;
 					});
 				}			 	
 				if(this.buscar){					
-					return this.itens.filter(res => {
+					return lista.filter(res => {
 						res = Object.values(res);
 						for(let k = 0; k < res.length; k++ ){							
 							if((res[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
@@ -115,7 +115,7 @@
 						return false;
 					});
 				}
-			   return this.itens;
+			   return lista;
 		   }
 	   }
     }
