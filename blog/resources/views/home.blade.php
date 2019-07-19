@@ -14,7 +14,7 @@
                 <caixa qnt="1500" titulo="Usuários" url="{{route('usuarios.index')}}" cor="#0080ff" icone="ion ion-person-stalker"></caixa>
             </div>
             <div class="col-md-4">
-                <caixa qnt="3" titulo="Autores" url="#" cor="#940000" icone="ion ion-person"></caixa>
+                <caixa qnt="3" titulo="Autores" url="{{route('autores.index')}}" cor="#940000" icone="ion ion-person"></caixa>
             </div>
         </div>
     </painel>

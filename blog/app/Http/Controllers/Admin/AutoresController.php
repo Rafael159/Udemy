@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Validation\Rule;
 
-use App\Artigo;
-
-class ArtigosController extends Controller
+class AutoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +19,12 @@ class ArtigosController extends Controller
         //array com o caminho das página visitadas
         $listaMigalhas = json_encode([
             ["titulo"=>"Home", "url"=>route('home')],
-            ["titulo"=>"Lista de Artigos", "url"=>""]
+            ["titulo"=>"Lista de autores", "url"=>""]
         ]);
         
-        $listaArtigos = Artigo::select('id', 'titulo', 'descricao', 'data')->paginate(5);
+        $listaModelo = User::select('id', 'name', 'email')->paginate(5);
 
-        return view('admin.artigos.index', compact('listaMigalhas', 'listaArtigos'));
+        return view('admin.autores.index', compact('listaMigalhas', 'listaModelo'));
     }
 
     /**
@@ -44,23 +44,16 @@ class ArtigosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {      
+    {
         //pegar dados vindos do formulário
         $data = $request->all();
 
         //validação
         $validacao = \Validator::make(
             $data, [
-                "titulo" => "required",
-                "descricao" => "required",
-                "conteudo" => "required",
-                "data" => "required"
-            ],
-            $messages = [
-                "titulo.required" => "Vai preencher o título ou o que?",
-                "descricao.required" => "Vai deixar a descrição vazia mesmo?",
-                "conteudo.required" => "Que palhaçada é essa tio? Escreva alguma coisa no conteúdo",
-                "data.required" => "Quer que eu adivinhe a data?"
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6',
             ]
         );
 
@@ -68,8 +61,10 @@ class ArtigosController extends Controller
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
+        $data['password'] = bcrypt($data['password']);
+
         //enviar para a model
-        Artigo::create($data);
+        User::create($data);
 
         //voltar para a página
         return redirect()->back();
@@ -83,7 +78,7 @@ class ArtigosController extends Controller
      */
     public function show($id)
     {
-        return Artigo::find($id);
+        return User::find($id);        
     }
 
     /**
@@ -108,29 +103,33 @@ class ArtigosController extends Controller
     {
         //pegar dados vindos do formulário
         $data = $request->all();
-
+        
         //validação
-        $validacao = \Validator::make(
-            $data, [
-                "titulo" => "required",
-                "descricao" => "required",
-                "conteudo" => "required",
-                "data" => "required"
-            ],
-            $messages = [
-                "titulo.required" => "Vai preencher o título ou o que?",
-                "descricao.required" => "Vai deixar a descrição vazia mesmo?",
-                "conteudo.required" => "Que palhaçada é essa tio? Escreva alguma coisa no conteúdo",
-                "data.required" => "Quer que eu adivinhe a data?"
-            ]
-        );
+        if(isset($data['password']) && !empty($data['password'])){
+            $validacao = \Validator::make(
+                $data, [
+                    'name' => 'required|string|max:255',                    
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+                    'password' => 'required|string|min:6',
+                ]
+            );
+            $data['password'] = bcrypt($data['password']);
+        }else{
+            $validacao = \Validator::make(
+                $data, [
+                    'name' => 'required|string|max:255',
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)]
+                ]
+            );
+            unset($data['password']);
+        }    
 
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
         //enviar para a model
-        Artigo::find($id)->update($data);
+        User::find($id)->update($data);
         //voltar para a página
         return redirect()->back();
     }
@@ -143,7 +142,7 @@ class ArtigosController extends Controller
      */
     public function destroy($id)
     {
-        Artigo::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back();
     }
 }
