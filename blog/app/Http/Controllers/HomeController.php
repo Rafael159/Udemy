@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,9 +25,14 @@ class HomeController extends Controller
     {
         //array com o caminho das página visitadas
         $listaMigalhas = json_encode([
-            ["titulo"=>"Home", "url"=>""]
-           
+            ["titulo"=>"Home", "url"=>""]           
         ]);
-        return view('home', compact('listaMigalhas'));
+
+        $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->count();
+        $qntAutores = DB::table('users')->where('autor', '=', 'S')->count();
+        $qntUsers = DB::table('users')->count();
+        
+
+        return view('home', compact('listaMigalhas', 'qntArtigos', 'qntUsers', 'qntAutores'));
     }
 }
