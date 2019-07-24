@@ -37,10 +37,15 @@ laravel-5.5-pt-BR-localization:
     git clone https://github.com/enniosousa/laravel-5.5-pt-BR-localization.git ./pt-BR
 
     obs: Você pode remover o diretório .git para poder incluir
-    e versionar os arquivos deste projeto no seu repositório:    
+    e versionar os arquivos deste projeto no seu repositório:
 
     rm -rf pt-BR/.git/
 
     Configurar o Framework para utilizar a linguagem como Default
     // Linha 81 do arquivo config/app.php
     'locale' => 'pt-BR',
+
+CKEditor:
+https://github.com/dangvanthanh/vue-ckeditor2
+https://github.com/dangvanthanh/vue-ckeditor2/wiki/Getting-Started
+npm install vue-ckeditor2 --save

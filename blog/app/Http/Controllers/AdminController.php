@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         //array com o caminho das página visitadas
         $listaMigalhas = json_encode([
-            ["titulo"=>"Home", "url"=>""]           
+            ["titulo"=>"Admin", "url"=>""]           
         ]);
 
         $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->count();
@@ -33,6 +33,6 @@ class HomeController extends Controller
         $qntUsers = DB::table('users')->count();
         
 
-        return view('home', compact('listaMigalhas', 'qntArtigos', 'qntUsers', 'qntAutores'));
+        return view('admin', compact('listaMigalhas', 'qntArtigos', 'qntUsers', 'qntAutores'));
     }
 }

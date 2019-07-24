@@ -17,7 +17,7 @@
         <tabela-lista 
             v-bind:titulos="['#', 'Título', 'Descrição', 'Autor', 'Data']"
             v-bind:itens="{{ json_encode($listaArtigos) }}"
-            ordem="desc" ordemcol="1"
+            ordem="desc" ordemcol="0"
             criar="#criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="/admin/artigos/" token="{{ csrf_token() }}"
             modal="sim"
         ></tabela-lista>
@@ -39,12 +39,24 @@
             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{old('descricao')}}">
         </div>
         <div class="form-group">
-            <label for="conteudo">Conteúdo</label>
+            <label for="addConteudo">Conteúdo</label>
             <textarea class="form-control" name="conteudo" id="conteudo"> {{old('conteudo')}}</textarea>
+        
+            <!-- <ckeditor 
+                id="addConteudo"
+                name="conteudo"
+                value="{{ old('conteudo') }}" 
+                :config="{
+                    toolbar: [
+                        [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ]
+                    ],
+                    height: 200
+                }">
+            </ckeditor> -->
         </div>
         <div class="form-group">
             <label for="data">Data</label>
-            <input type="datetime-local" class="form-control" id="data" name="data"  value="{{old('data')}}">
+            <input type="date" class="form-control" id="data" name="data"  value="{{old('data')}}">
         </div>
     </formulario>
     <span slot="botoes">
@@ -64,12 +76,12 @@
             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" v-model="$store.state.item.descricao">
         </div>
         <div class="form-group">
-            <label for="conteudo">Conteúdo</label>
-            <textarea class="form-control" name="conteudo" id="conteudo" v-model="$store.state.item.conteudo"></textarea>
+            <label for="editConteudo">Conteúdo</label>
+            <textarea class="form-control" name="conteudo" id="editConteudo" v-model="$store.state.item.conteudo"></textarea>
         </div>
         <div class="form-group">
             <label for="data">Data</label>
-            <input type="datetime-local" class="form-control" id="data" name="data" v-model="$store.state.item.data">
+            <input type="date" class="form-control" id="data" name="data" v-model="$store.state.item.data">
         </div>
     </formulario>
     <span slot="botoes">

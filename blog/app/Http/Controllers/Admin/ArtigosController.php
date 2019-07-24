@@ -18,7 +18,7 @@ class ArtigosController extends Controller
     {
         //array com o caminho das página visitadas
         $listaMigalhas = json_encode([
-            ["titulo"=>"Home", "url"=>route('home')],
+            ["titulo"=>"Admin", "url"=>route('admin')],
             ["titulo"=>"Lista de Artigos", "url"=>""]
         ]);
 
