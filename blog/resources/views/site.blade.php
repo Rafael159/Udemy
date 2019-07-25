@@ -9,7 +9,7 @@
                 <artigocard
                     titulo="{{$value->titulo}}"
                     descricao="{{$value->descricao}}"
-                    link="#"
+                    link="{{ route('artigo', [$value->id, str_slug($value->titulo)]) }}"
                     imagem="https://media.istockphoto.com/photos/growing-tree-to-save-ecological-sustainability-sustainable-and-picture-id956676682?k=6&m=956676682&s=612x612&w=0&h=kBjCU53euVOYNpjuPvkA_H3URkFqkfzkSXwgKzzd0Mo="
                     data="{{$value->data}}"
                     autor="{{$value->autor}}"
