@@ -46367,7 +46367,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { class: _vm.defineCor }, [
-    _c("div", { staticClass: "panel-heading" }, [_vm._v(_vm._s(_vm.titulo))]),
+    _vm.titulo
+      ? _c("div", { staticClass: "panel-heading" }, [
+          _vm._v(_vm._s(_vm.titulo))
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "panel-body" }, [_vm._t("default")], 2)
   ])
