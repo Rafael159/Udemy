@@ -3,7 +3,7 @@
         <div class="thumbnail">
             <img :src="imagem" alt="Conservação do Meio Ambiente">
             <div class="caption">
-                <small>{{data}} - {{autor}}</small>
+                <small>{{data | formataData}} - {{autor}}</small>
                 <h3>{{titulo}}</h3>
                 <p>
                     {{descricao}}
@@ -16,6 +16,14 @@
 
 <script>
     export default {
-        props:['titulo', 'descricao', 'link', 'imagem', 'data', 'autor', 'sm', 'md']
+        props:['titulo', 'descricao', 'link', 'imagem', 'data', 'autor', 'sm', 'md'],
+        filters:{
+		   formataData: function(valor){
+			    if(!valor) return '';
+			    valor = valor.toString();
+			    valor = valor.split('-');
+			    return valor[2] + '/' + valor[1] +'/'+ valor[0];
+		   }
+	   }
     }
 </script>
