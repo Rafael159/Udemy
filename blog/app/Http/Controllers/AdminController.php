@@ -28,7 +28,13 @@ class AdminController extends Controller
             ["titulo"=>"Admin", "url"=>""]           
         ]);
 
-        $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->count();
+        $user = auth()->user();
+        if($user->admin=="S"){
+            $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->count();
+        }else{
+            $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->where('artigos.user_id', '=', $user->id)->count();
+        }
+
         $qntAutores = DB::table('users')->where('autor', '=', 'S')->count();
         $qntAdmin = DB::table('users')->where('admin', '=', 'S')->count();
         $qntUsers = DB::table('users')->count();

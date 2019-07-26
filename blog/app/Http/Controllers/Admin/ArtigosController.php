@@ -68,9 +68,9 @@ class ArtigosController extends Controller
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        //enviar para a model
-        Artigo::create($data);
-
+        $user = auth()->user();//info do user logado
+        $user->artigos()->create($data);//relação de artigo e usuário
+        
         //voltar para a página
         return redirect()->back();
     }
@@ -130,7 +130,8 @@ class ArtigosController extends Controller
         }
 
         //enviar para a model
-        Artigo::find($id)->update($data);
+        $user = auth()->user();//info do user logado
+        $user->artigos()->find($id)->update($data);
         //voltar para a página
         return redirect()->back();
     }

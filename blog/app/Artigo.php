@@ -30,11 +30,26 @@ class Artigo extends Model
             //unset($value->user);
         }*/
 
-        $listaArtigos = DB::table('artigos')
-        ->join('users', 'users.id','=', 'artigos.user_id')
-        ->select('artigos.id', 'artigos.titulo', 'artigos.descricao', 'users.name', 'artigos.data')
-        ->whereNull('deleted_at')
-        ->paginate($paginate);
+        $user = auth()->user();//info do user logado
+        
+        if($user->admin == "S"){
+            $listaArtigos = DB::table('artigos')
+            ->join('users', 'users.id','=', 'artigos.user_id')
+            ->select('artigos.id', 'artigos.titulo', 'artigos.descricao', 'users.name', 'artigos.data')
+            ->whereNull('deleted_at')
+            ->orderBy('artigos.id', 'DESC')
+            ->paginate($paginate);
+        }else{
+            $listaArtigos = DB::table('artigos')
+            ->join('users', 'users.id','=', 'artigos.user_id')
+            ->select('artigos.id', 'artigos.titulo', 'artigos.descricao', 'users.name', 'artigos.data')
+            ->whereNull('deleted_at')
+            ->where('artigos.user_id','=', $user->id)
+            ->orderBy('artigos.id', 'DESC')
+            ->paginate($paginate);
+        }
+
+       
 
         return $listaArtigos;
     }
