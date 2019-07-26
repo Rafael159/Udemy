@@ -12,13 +12,13 @@
         </div>    
     @endif
 
-    <painel titulo="Lista de usuários">
+    <painel titulo="Lista de admin">
         <migalhas v-bind:lista="{{$listaMigalhas}}"></migalhas>
         <tabela-lista 
             v-bind:titulos="['#', 'Nome', 'Email']"
             v-bind:itens="{{ json_encode($listaModelo) }}"
             ordem="desc" ordemcol="1"
-            criar="#criar" detalhe="/admin/usuarios/" editar="/admin/usuarios/" deletar="/admin/usuarios/" token="{{ csrf_token() }}"
+            criar="#criar" detalhe="/admin/adm/" editar="/admin/adm/"
             modal="sim"
         ></tabela-lista>
         <div align="center">
@@ -29,7 +29,7 @@
 
 <!--Modal Adicionar-->
 <modal nome="adicionar" titulo="Adicionar">
-    <formulario id="formAdicionar" class="" action="{{route('usuarios.store')}}" method="post" enctype="" token="{{ csrf_token() }}">        
+    <formulario id="formAdicionar" class="" action="{{route('adm.store')}}" method="post" enctype="" token="{{ csrf_token() }}">        
         <div class="form-group">
             <label for="name">Nome</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="{{old('name')}}">
@@ -37,14 +37,6 @@
         <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}">
-        </div>
-        
-        <div class="form-group">
-            <label for="autor">Autor</label>            
-            <select class="form-control" name="autor" id="autor">
-                <option {{( old('autor') &&  old('autor') == 'N' ? 'selected' : '' )}} value="N">Não</option>
-                <option {{( old('autor') &&  old('autor') == 'S' ? 'selected' : '' )}} value="S">Sim</option>
-            </select>
         </div>
         <div class="form-group">
             <label for="admin">Admin</label>            
@@ -65,7 +57,7 @@
 
 <!--Modal Editar-->
 <modal nome="editar" titulo="Editar">    
-    <formulario id="formEditar" class="" :action="'/admin/usuarios/' + $store.state.item.id" method="put" enctype="" token="{{ csrf_token() }}">        
+    <formulario id="formEditar" class="" :action="'/admin/adm/' + $store.state.item.id" method="put" enctype="" token="{{ csrf_token() }}">        
         <div class="form-group">
             <label for="name">Nome</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Nome" v-model="$store.state.item.name">
@@ -75,19 +67,12 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" v-model="$store.state.item.email">
         </div>
         <div class="form-group">
-            <label for="autor">Autor</label>            
-            <select class="form-control" name="autor" id="autor" v-model="$store.state.item.autor">
-                <option value="N">Não</option>
-                <option value="S">Sim</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label for="admin">Admin</label>            
             <select class="form-control" name="admin" id="admin" v-model="$store.state.item.admin">
                 <option value="N">Não</option>
                 <option value="S">Sim</option>
             </select>
-        </div> 
+        </div>    
         <div class="form-group">
             <label for="password">Senha</label>
             <input type="password" class="form-control" id="password" name="password">

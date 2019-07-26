@@ -30,9 +30,10 @@ class AdminController extends Controller
 
         $qntArtigos = DB::table('artigos')->whereNull('deleted_at')->count();
         $qntAutores = DB::table('users')->where('autor', '=', 'S')->count();
+        $qntAdmin = DB::table('users')->where('admin', '=', 'S')->count();
         $qntUsers = DB::table('users')->count();
         
 
-        return view('admin', compact('listaMigalhas', 'qntArtigos', 'qntUsers', 'qntAutores'));
+        return view('admin', compact('listaMigalhas', 'qntArtigos', 'qntUsers', 'qntAutores', 'qntAdmin'));
     }
 }
